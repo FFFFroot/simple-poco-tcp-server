@@ -53,7 +53,7 @@ public:
 int main()
 {
     Poco::Net::TCPServerParams* serverParams = new Poco::Net::TCPServerParams();
-    pParams->setMaxThreads(MAX_THREADS_NUM);
+    serverParams->setMaxThreads(MAX_THREADS_NUM);
 
     TCPServer server(new InputReverseServerConnectionFactory(), PORT, serverParams);
     server.start();
