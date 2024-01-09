@@ -21,8 +21,7 @@ class InputReverseServerConnection : public TCPServerConnection{
 public:
     InputReverseServerConnection(const StreamSocket& socket) : TCPServerConnection(socket) {}
 
-    void run()
-    {
+    void run(){
         SocketsocketStream socketStream(socket());
         socketStream << "Welcome to POCO TCP server. Enter you string: (max 255 symbols):\n";
         socketStream.flush();
@@ -30,8 +29,7 @@ public:
         std::string str;
         std::getline(socketStream, str);
 
-        if (str.size() > 255)
-        {
+        if (str.size() > 255){
             socketStream << "Error: the line is not to exceed 255 symbols." << std::endl;
             return;
         }
@@ -41,25 +39,21 @@ public:
     }
 };
 
-class InputReverseServerConnectionFactory : public TCPServerConnectionFactory
-{
+class InputReverseServerConnectionFactory : public TCPServerConnectionFactory{
 public:
-    InputReverseServerConnection* createConnection(const StreamSocket& socket) override
-    {
+    InputReverseServerConnection* createConnection(const StreamSocket& socket) override{
         return new InputReverseServerConnection(socket);
     }
 };
 
-int main()
-{
+int main(){
     Poco::Net::TCPServerParams* serverParams = new Poco::Net::TCPServerParams();
     serverParams->setMaxThreads(MAX_THREADS_NUM);
 
     TCPServer server(new InputReverseServerConnectionFactory(), PORT, serverParams);
     server.start();
 
-    while (true)
-    {
+    while (true){
         Poco::Thread::sleep(SLEEP_INTERVAL);
     }
 
