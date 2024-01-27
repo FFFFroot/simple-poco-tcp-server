@@ -2,8 +2,8 @@ CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic
 LDFLAGS = -lPocoFoundation -lPocoNet
 
-TARGET = tcp_server
-SRCS = tcp_server.cpp
+TARGET = server
+SRCS = server.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .PHONY: all clean
